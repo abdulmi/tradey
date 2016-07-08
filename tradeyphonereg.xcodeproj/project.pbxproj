@@ -7,14 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D3FCD1FEAACB6641A0769F5 /* Pods_tradeyphonereg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0533A91CE53A06482FF26660 /* Pods_tradeyphonereg.framework */; };
 		C3AB85CA1D2E910D006DDBE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AB85C91D2E910D006DDBE2 /* AppDelegate.swift */; };
 		C3AB85CC1D2E910D006DDBE2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AB85CB1D2E910D006DDBE2 /* ViewController.swift */; };
 		C3AB85CF1D2E910D006DDBE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3AB85CD1D2E910D006DDBE2 /* Main.storyboard */; };
 		C3AB85D11D2E910D006DDBE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3AB85D01D2E910D006DDBE2 /* Assets.xcassets */; };
 		C3AB85D41D2E910D006DDBE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3AB85D21D2E910D006DDBE2 /* LaunchScreen.storyboard */; };
+		C3EB101E1D2F2D9C00621AAB /* GoogleService-Info .plist in Resources */ = {isa = PBXBuildFile; fileRef = C3EB101D1D2F2D9C00621AAB /* GoogleService-Info .plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0533A91CE53A06482FF26660 /* Pods_tradeyphonereg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tradeyphonereg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44A7EE73A7582CAB87A3A736 /* Pods-tradeyphonereg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeyphonereg.release.xcconfig"; path = "Pods/Target Support Files/Pods-tradeyphonereg/Pods-tradeyphonereg.release.xcconfig"; sourceTree = "<group>"; };
+		9FA16614D5A8FF883722CB8D /* Pods-tradeyphonereg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeyphonereg.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tradeyphonereg/Pods-tradeyphonereg.debug.xcconfig"; sourceTree = "<group>"; };
 		C3AB85C61D2E910D006DDBE2 /* tradeyphonereg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tradeyphonereg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3AB85C91D2E910D006DDBE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3AB85CB1D2E910D006DDBE2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +27,7 @@
 		C3AB85D01D2E910D006DDBE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3AB85D31D2E910D006DDBE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3AB85D51D2E910D006DDBE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3EB101D1D2F2D9C00621AAB /* GoogleService-Info .plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info .plist"; path = "../../../../Downloads/GoogleService-Info .plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +35,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D3FCD1FEAACB6641A0769F5 /* Pods_tradeyphonereg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43C6B73BDC0CA16E00079927 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9FA16614D5A8FF883722CB8D /* Pods-tradeyphonereg.debug.xcconfig */,
+				44A7EE73A7582CAB87A3A736 /* Pods-tradeyphonereg.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		C3AB85BD1D2E910C006DDBE2 = {
 			isa = PBXGroup;
 			children = (
 				C3AB85C81D2E910D006DDBE2 /* tradeyphonereg */,
 				C3AB85C71D2E910D006DDBE2 /* Products */,
+				43C6B73BDC0CA16E00079927 /* Pods */,
+				DAB029896766E864BDE082A5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,8 +78,17 @@
 				C3AB85D01D2E910D006DDBE2 /* Assets.xcassets */,
 				C3AB85D21D2E910D006DDBE2 /* LaunchScreen.storyboard */,
 				C3AB85D51D2E910D006DDBE2 /* Info.plist */,
+				C3EB101D1D2F2D9C00621AAB /* GoogleService-Info .plist */,
 			);
 			path = tradeyphonereg;
+			sourceTree = "<group>";
+		};
+		DAB029896766E864BDE082A5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0533A91CE53A06482FF26660 /* Pods_tradeyphonereg.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +98,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3AB85D81D2E910D006DDBE2 /* Build configuration list for PBXNativeTarget "tradeyphonereg" */;
 			buildPhases = (
+				5DB63866D5EAB3ED47A19B6F /* [CP] Check Pods Manifest.lock */,
 				C3AB85C21D2E910D006DDBE2 /* Sources */,
 				C3AB85C31D2E910D006DDBE2 /* Frameworks */,
 				C3AB85C41D2E910D006DDBE2 /* Resources */,
+				ED2D1C05D28827821E867A21 /* [CP] Embed Pods Frameworks */,
+				5606A5819A6593F3D1978A17 /* [CP] Copy Pods Resources */,
+				C3AB85DC1D2E927B006DDBE2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -125,10 +156,72 @@
 				C3AB85D41D2E910D006DDBE2 /* LaunchScreen.storyboard in Resources */,
 				C3AB85D11D2E910D006DDBE2 /* Assets.xcassets in Resources */,
 				C3AB85CF1D2E910D006DDBE2 /* Main.storyboard in Resources */,
+				C3EB101E1D2F2D9C00621AAB /* GoogleService-Info .plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5606A5819A6593F3D1978A17 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tradeyphonereg/Pods-tradeyphonereg-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5DB63866D5EAB3ED47A19B6F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C3AB85DC1D2E927B006DDBE2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" c2c3fb5b9f1737efeac59f6ba2bbdcc4376a287b 94caf707104d56fec32a2950ec4130853d056fec6c13901ca0943a14131144ce";
+		};
+		ED2D1C05D28827821E867A21 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tradeyphonereg/Pods-tradeyphonereg-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C3AB85C21D2E910D006DDBE2 /* Sources */ = {
@@ -247,6 +340,7 @@
 		};
 		C3AB85D91D2E910D006DDBE2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FA16614D5A8FF883722CB8D /* Pods-tradeyphonereg.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = tradeyphonereg/Info.plist;
@@ -258,6 +352,7 @@
 		};
 		C3AB85DA1D2E910D006DDBE2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44A7EE73A7582CAB87A3A736 /* Pods-tradeyphonereg.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = tradeyphonereg/Info.plist;
@@ -286,6 +381,7 @@
 				C3AB85DA1D2E910D006DDBE2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
