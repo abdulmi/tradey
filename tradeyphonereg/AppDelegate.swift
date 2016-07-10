@@ -10,6 +10,7 @@ import UIKit
 import Fabric
 import DigitsKit
 import Answers
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,8 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window?.makeKeyAndVisible()
+        
+        window?.rootViewController = UINavigationController(rootViewController: ViewController())
         Fabric.with([Digits.self])
         Fabric.with([Answers.self])
+        FIRApp.configure()
         return true
     }
 
