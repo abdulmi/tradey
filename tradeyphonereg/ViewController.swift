@@ -25,7 +25,11 @@ class ViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         if let user = FIRAuth.auth()?.currentUser {
             // User is signed in.
+            print("user is fucking authenticated")
+            print(user.email)
+//            try! FIRAuth.auth()?.signOut()
             self.home()
+            
         } else {
             // No user is signed in.
             self.view.addSubview(signUpWithNumber)
@@ -48,8 +52,9 @@ class ViewController: UIViewController {
         
     }()
     
-    func emailLogin() {
+    func emailLogin(number:String) {
         let loginController = LoginController()
+        loginController.userPhoneNumber = number
         presentViewController(loginController, animated: true, completion: nil)
     }
     
@@ -71,7 +76,7 @@ class ViewController: UIViewController {
                 print(error)
             } else if(session != nil) {
                 print(session.authToken)
-                self.emailLogin()
+                self.emailLogin(session.phoneNumber)
             }
         }
         

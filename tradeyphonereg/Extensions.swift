@@ -17,6 +17,7 @@ extension UIImageView {
         
         //check cache for image first 
         if let chachedImage = imageCache.objectForKey(urlString) as? UIImage {
+            print("getting photo from cahce")
             self.image = chachedImage
             return
         }
@@ -28,7 +29,7 @@ extension UIImageView {
                 print(error)
                 return
             }
-            print("before downloading")
+            print("getting photo from firebase")
             dispatch_async(dispatch_get_main_queue(), {
                 if let downloadedImage = UIImage(data: data!) {
                     imageCache.setObject(downloadedImage, forKey: urlString)

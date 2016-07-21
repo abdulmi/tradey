@@ -11,6 +11,8 @@ import Firebase
 
 class LoginController: UIViewController {
 
+    var userPhoneNumber: String!
+    
     let inputsContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.whiteColor()
@@ -112,7 +114,7 @@ class LoginController: UIViewController {
             
             let ref = FIRDatabase.database().referenceFromURL("https://tradey2-0.firebaseio.com/")
             let userRef = ref.child("users").child(uid)
-            let values = ["email": email, "name": name]
+            let values = ["email": email, "name": name, "phone": self.userPhoneNumber]
             userRef.updateChildValues(values, withCompletionBlock: {
                 (err,ref) in
                 if(err != nil) {

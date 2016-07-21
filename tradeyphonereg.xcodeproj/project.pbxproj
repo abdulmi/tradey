@@ -8,11 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		7D3FCD1FEAACB6641A0769F5 /* Pods_tradeyphonereg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0533A91CE53A06482FF26660 /* Pods_tradeyphonereg.framework */; };
+		C3445ADB1D32F28800A2AF3A /* ShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3445ADA1D32F28800A2AF3A /* ShowViewController.swift */; };
+		C392E8C21D3BED6B00ADB5F0 /* GetRequestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C392E8C11D3BED6B00ADB5F0 /* GetRequestsController.swift */; };
 		C3AB85CA1D2E910D006DDBE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AB85C91D2E910D006DDBE2 /* AppDelegate.swift */; };
 		C3AB85CC1D2E910D006DDBE2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AB85CB1D2E910D006DDBE2 /* ViewController.swift */; };
 		C3AB85CF1D2E910D006DDBE2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3AB85CD1D2E910D006DDBE2 /* Main.storyboard */; };
 		C3AB85D11D2E910D006DDBE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3AB85D01D2E910D006DDBE2 /* Assets.xcassets */; };
 		C3AB85D41D2E910D006DDBE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3AB85D21D2E910D006DDBE2 /* LaunchScreen.storyboard */; };
+		C3C2498B1D39D1E80032B68C /* RequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C2498A1D39D1E80032B68C /* RequestController.swift */; };
+		C3C2498D1D3B20940032B68C /* ContactController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C2498C1D3B20940032B68C /* ContactController.swift */; };
 		C3E1E3711D31823E00AFB187 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E1E3701D31823E00AFB187 /* ItemsViewController.swift */; };
 		C3E1E3731D31844100AFB187 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E1E3721D31844100AFB187 /* AddViewController.swift */; };
 		C3E1E3761D31A7C300AFB187 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E1E3751D31A7C300AFB187 /* Item.swift */; };
@@ -25,6 +29,8 @@
 		0533A91CE53A06482FF26660 /* Pods_tradeyphonereg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tradeyphonereg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44A7EE73A7582CAB87A3A736 /* Pods-tradeyphonereg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeyphonereg.release.xcconfig"; path = "Pods/Target Support Files/Pods-tradeyphonereg/Pods-tradeyphonereg.release.xcconfig"; sourceTree = "<group>"; };
 		9FA16614D5A8FF883722CB8D /* Pods-tradeyphonereg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeyphonereg.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tradeyphonereg/Pods-tradeyphonereg.debug.xcconfig"; sourceTree = "<group>"; };
+		C3445ADA1D32F28800A2AF3A /* ShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowViewController.swift; sourceTree = "<group>"; };
+		C392E8C11D3BED6B00ADB5F0 /* GetRequestsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRequestsController.swift; sourceTree = "<group>"; };
 		C3AB85C61D2E910D006DDBE2 /* tradeyphonereg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tradeyphonereg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3AB85C91D2E910D006DDBE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3AB85CB1D2E910D006DDBE2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -32,6 +38,8 @@
 		C3AB85D01D2E910D006DDBE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3AB85D31D2E910D006DDBE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3AB85D51D2E910D006DDBE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C3C2498A1D39D1E80032B68C /* RequestController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestController.swift; sourceTree = "<group>"; };
+		C3C2498C1D3B20940032B68C /* ContactController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactController.swift; sourceTree = "<group>"; };
 		C3E1E3701D31823E00AFB187 /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		C3E1E3721D31844100AFB187 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		C3E1E3751D31A7C300AFB187 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -93,6 +101,10 @@
 				C3AB85D51D2E910D006DDBE2 /* Info.plist */,
 				C3EB101F1D2F377700621AAB /* GoogleService-Info.plist */,
 				C3E1E3701D31823E00AFB187 /* ItemsViewController.swift */,
+				C392E8C11D3BED6B00ADB5F0 /* GetRequestsController.swift */,
+				C3445ADA1D32F28800A2AF3A /* ShowViewController.swift */,
+				C3C2498C1D3B20940032B68C /* ContactController.swift */,
+				C3C2498A1D39D1E80032B68C /* RequestController.swift */,
 			);
 			path = tradeyphonereg;
 			sourceTree = "<group>";
@@ -268,10 +280,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3C2498B1D39D1E80032B68C /* RequestController.swift in Sources */,
 				C3E1E3731D31844100AFB187 /* AddViewController.swift in Sources */,
+				C392E8C21D3BED6B00ADB5F0 /* GetRequestsController.swift in Sources */,
 				C3AB85CC1D2E910D006DDBE2 /* ViewController.swift in Sources */,
 				C3E1E3711D31823E00AFB187 /* ItemsViewController.swift in Sources */,
+				C3445ADB1D32F28800A2AF3A /* ShowViewController.swift in Sources */,
 				C3EB10251D2F63A100621AAB /* LoginController.swift in Sources */,
+				C3C2498D1D3B20940032B68C /* ContactController.swift in Sources */,
 				C3E1E3761D31A7C300AFB187 /* Item.swift in Sources */,
 				C3AB85CA1D2E910D006DDBE2 /* AppDelegate.swift in Sources */,
 				C3E1E3791D31D82700AFB187 /* Extensions.swift in Sources */,

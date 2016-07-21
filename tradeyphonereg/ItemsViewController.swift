@@ -12,6 +12,7 @@ import Firebase
 class ItemsViewController: UITableViewController {
     
     var items = [Item]()
+    var itemsIds = [String]()
     let cellId = "Cell"
 
     override func viewDidLoad() {
@@ -19,11 +20,18 @@ class ItemsViewController: UITableViewController {
         
         print("We are Home baby")
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .Plain, target: self, action: #selector(newItem))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "requests", style: .Plain, target: self, action: #selector(getRequests))
         // Do any additional setup after loading the view.
         tableView.registerClass(ItemCell.self, forCellReuseIdentifier: cellId)
         print("before fetching")
         fetchItems()
         
+    }
+    
+    func getRequests() {
+        let getRequestsController = GetRequestsController()
+        let navController = UINavigationController(rootViewController: getRequestsController)
+        presentViewController(navController, animated: true, completion: nil)
     }
     
     func fetchItems() {
@@ -35,7 +43,9 @@ class ItemsViewController: UITableViewController {
                 item.title = dictionary["title"] as! String
                 item.desc = dictionary["description"] as! String
                 item.itemImageUrl = dictionary["imageUrl"] as! String
+                item.userId = dictionary["userId"] as! String
                 self.items.append(item)
+                self.itemsIds.append(snapshot.key)
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()
@@ -48,6 +58,15 @@ class ItemsViewController: UITableViewController {
         
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        //
+        let showViewController = ShowViewController()
+        showViewController.currentItem = items[indexPath.row]
+        showViewController.currentItemId = itemsIds[indexPath.row]
+        let navigationController = UINavigationController(rootViewController: showViewController)
+        self.presentViewController(navigationController, animated: true, completion: nil)
+        
+    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -62,21 +81,10 @@ class ItemsViewController: UITableViewController {
         print(item.title)
         print(item.desc)
         print(item.itemImageUrl)
+        print(item.userId)
         
         if let imageUrl = item.itemImageUrl {
             cell.itemImageView.loadImageUsingCacheWithUrlString(imageUrl)
-//            let url = NSURL(string: imageUrl)
-//            NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) in
-//                if(error != nil) {
-//                    print(error)
-//                    return
-//                }
-//                print("before downloading")
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    cell.itemImageView.image = UIImage(data: data!)
-//                })
-//                
-//            }).resume()
         }
         
         return cell

@@ -12,4 +12,5 @@ class Item: NSObject {
     var title: String?
     var desc: String?
     var itemImageUrl: String?
+    var userId: String?
 }

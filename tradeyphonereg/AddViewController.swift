@@ -181,35 +181,52 @@ class AddViewController: UIViewController, UITextViewDelegate, UIImagePickerCont
     }
     
     func submitItem() {
-        let itemRef = FIRDatabase.database().reference().child("items")
-        let newItemRef = itemRef.childByAutoId()
-        let key = newItemRef.key
-        if (titleTextField.text == "") || (descriptionTextField.text == "Describe your item") {
-            print("error Add item")
-        } else {
-            let imageName = NSUUID().UUIDString
-            let storageRef = FIRStorage.storage().reference().child("\(imageName).png")
-            if let uploadData = UIImageJPEGRepresentation(itemImage!,1) {
-                storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
-                    if(error != nil) {
-                        print("image upload error")
-                        print(error)
-                        return
+        if let user = FIRAuth.auth()?.currentUser {
+            //user is signed in, now add the item with all its attributes
+            let userId = user.uid
+            let itemRef = FIRDatabase.database().reference().child("items")
+            let newItemRef = itemRef.childByAutoId()
+            let key = newItemRef.key
+            if (titleTextField.text == "") || (descriptionTextField.text == "Describe your item") || (descriptionTextField.text == "") {
+                print("error Add item")
+            } else {
+                let imageName = NSUUID().UUIDString
+                let storageRef = FIRStorage.storage().reference().child("\(imageName).jpg")
+                if (itemImage == nil) {
+                    print("error Take photo")
+                } else {
+                    if let uploadData = UIImageJPEGRepresentation(itemImage!,0.4) {
+                        storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                            if(error != nil) {
+                                print("image upload error")
+                                print(error)
+                                return
+                            }
+                            if let imageUrl = metadata?.downloadURL()?.absoluteString {
+                                print(imageUrl)
+                                let contentRef = [
+                                    "title":self.titleTextField.text as! AnyObject,
+                                    "description":self.descriptionTextField.text as! AnyObject,
+                                    "imageUrl":imageUrl,
+                                    "userId":userId
+                                ]
+                                newItemRef.setValue(contentRef)
+                            }
+                            
+                        })
+                        let ref = FIRDatabase.database().referenceFromURL("https://tradey2-0.firebaseio.com/")
+                        let userRefItem = ref.child("users").child(userId).child("items").childByAutoId()
+                        userRefItem.setValue(key)
+                        
                     }
-                    if let imageUrl = metadata?.downloadURL()?.absoluteString {
-                        print(imageUrl)
-                        let contentRef = [
-                            "title":self.titleTextField.text as! AnyObject,
-                            "description":self.descriptionTextField.text as! AnyObject,
-                            "imageUrl":imageUrl
-                        ]
-                        newItemRef.setValue(contentRef)
-                    }
-                    
-                })
+                    home()
+                }
             }
-            home()
+        } else {
+            //user is not signed in
+            print("error: user is not signed in")
         }
+        
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -223,10 +240,10 @@ class AddViewController: UIViewController, UITextViewDelegate, UIImagePickerCont
         
         if let edittedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
             selectedImageFromPicker = edittedImage
-        }
-        
-        if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            print("editted image")
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
             selectedImageFromPicker = originalImage
+            print("original image")
             print(originalImage)
         }
         if let selectedImage: UIImage = selectedImageFromPicker {
