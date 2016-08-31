@@ -6,4 +6,12 @@
 //  Copyright © 2016 abdul. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class Request: NSObject {
+    var accepted: String?
+    var fromItem: String?
+    var fromUser: String?
+    var toItem: String?
+    var toUser: String?
+}

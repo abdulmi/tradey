@@ -5,6 +5,7 @@
 //  Created by Abdulqader Almetwali on 2016-07-07.
 //  Copyright © 2016 abdul. All rights reserved.
 //
+// This page is for registering with phone number
 
 import UIKit
 import DigitsKit
@@ -115,6 +116,10 @@ class ViewController: UIViewController {
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
     }
 
 

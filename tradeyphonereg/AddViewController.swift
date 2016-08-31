@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
+import UIKeyboardLikePickerTextField
 
-class AddViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var itemImage: UIImage!
     
@@ -24,17 +25,42 @@ class AddViewController: UIViewController, UITextViewDelegate, UIImagePickerCont
         view.addSubview(inputsContainerView)
         view.addSubview(takePhoto)
         view.addSubview(addViewTitle)
+        view.addSubview(pickerTextField)
         
         setupInputsContainerView()
         setupLoginRegisterButton()
         setupAddViewTitle()
+        setupPickerTextField()
         print("AddnewItem")
         // Do any additional setup after loading the view
         self.navigationController!.navigationBarHidden = false
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: #selector(home))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: #selector(back))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .Plain, target: self, action: #selector(submitItem))
 
     }
+    
+    lazy var pickerTextField: UIKeyboardLikePickerTextField = {
+        let picker = UIKeyboardLikePickerTextField()
+        picker.delegate = self
+        picker.pickerDataSource = ["Transportation", "Electronics", "Furniture", "Other"]
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.layer.masksToBounds = false
+        picker.layer.cornerRadius = 10
+//        picker.textColor = UIColor.whiteColor()
+        
+        picker.text = "Choose Category"
+        picker.textAlignment = .Center
+        picker.backgroundColor = UIColor.whiteColor()
+        return picker
+    }()
+    
+    func setupPickerTextField() {
+        pickerTextField.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
+        pickerTextField.topAnchor.constraintEqualToAnchor(inputsContainerView.bottomAnchor,constant: 12).active = true
+        pickerTextField.widthAnchor.constraintEqualToAnchor(takePhoto.widthAnchor).active = true
+        pickerTextField.heightAnchor.constraintEqualToConstant(35).active = true
+    }
+
     
     let inputsContainerView: UIView = {
         let view = UIView()
@@ -118,7 +144,15 @@ class AddViewController: UIViewController, UITextViewDelegate, UIImagePickerCont
     }()
     
     func home() {
-            dismissViewControllerAnimated(true, completion: nil)
+        let itemsViewController = ItemsViewController()
+        itemsViewController.resetAllButtons()
+        itemsViewController.navigationItem.title = "All"
+        let navigationController = UINavigationController(rootViewController: itemsViewController)
+        self.presentViewController(navigationController, animated: true, completion: nil)
+    }
+    
+    func back() {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     func setupInputsContainerView() {
@@ -175,7 +209,7 @@ class AddViewController: UIViewController, UITextViewDelegate, UIImagePickerCont
     func setupLoginRegisterButton() {
         //need x, y, width, height constraints
         takePhoto.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        takePhoto.topAnchor.constraintEqualToAnchor(inputsContainerView.bottomAnchor, constant: 12).active = true
+        takePhoto.topAnchor.constraintEqualToAnchor(pickerTextField.bottomAnchor, constant: 12).active = true
         takePhoto.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
         takePhoto.heightAnchor.constraintEqualToConstant(50).active = true
     }
@@ -187,8 +221,8 @@ class AddViewController: UIViewController, UITextViewDelegate, UIImagePickerCont
             let itemRef = FIRDatabase.database().reference().child("items")
             let newItemRef = itemRef.childByAutoId()
             let key = newItemRef.key
-            if (titleTextField.text == "") || (descriptionTextField.text == "Describe your item") || (descriptionTextField.text == "") {
-                print("error Add item")
+            if (titleTextField.text == "") || (descriptionTextField.text == "Describe your item") || (descriptionTextField.text == "" || pickerTextField.text == "Choose Category" || (pickerTextField.text != "Electronics" && pickerTextField.text != "Furniture" && pickerTextField.text != "Other" && pickerTextField.text != "Transportation")) {
+                print("error Add item or Category")
             } else {
                 let imageName = NSUUID().UUIDString
                 let storageRef = FIRStorage.storage().reference().child("\(imageName).jpg")
@@ -204,11 +238,14 @@ class AddViewController: UIViewController, UITextViewDelegate, UIImagePickerCont
                             }
                             if let imageUrl = metadata?.downloadURL()?.absoluteString {
                                 print(imageUrl)
+                                let timestamp: NSNumber = Int(NSDate().timeIntervalSinceReferenceDate)
                                 let contentRef = [
                                     "title":self.titleTextField.text as! AnyObject,
                                     "description":self.descriptionTextField.text as! AnyObject,
                                     "imageUrl":imageUrl,
-                                    "userId":userId
+                                    "userId":userId,
+                                    "timestamp": timestamp,
+                                    "category": self.pickerTextField.text! as String
                                 ]
                                 newItemRef.setValue(contentRef)
                             }
@@ -270,7 +307,12 @@ class AddViewController: UIViewController, UITextViewDelegate, UIImagePickerCont
         
         titleTextField.resignFirstResponder()
         descriptionTextField.resignFirstResponder()
+        pickerTextField.resignFirstResponder()
         return true
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
     }
     
     

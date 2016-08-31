@@ -86,6 +86,10 @@ class ContactController: UITableViewController {
             }
         }
     }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
 }
 
 class ContactCell: UITableViewCell {

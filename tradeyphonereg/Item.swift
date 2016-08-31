@@ -13,4 +13,6 @@ class Item: NSObject {
     var desc: String?
     var itemImageUrl: String?
     var userId: String?
+    var timestamp: NSNumber?
+    var category: String?
 }

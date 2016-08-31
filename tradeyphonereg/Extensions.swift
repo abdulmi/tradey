@@ -41,3 +41,22 @@ extension UIImageView {
 
     }
 }
+
+extension UINavigationController {
+    public override func shouldAutorotate() -> Bool {
+        return true
+    }
+    
+    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return (visibleViewController?.supportedInterfaceOrientations())!
+    }
+}
+
+extension UIAlertController {
+    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    public override func shouldAutorotate() -> Bool {
+        return false
+    }
+}

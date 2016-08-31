@@ -54,6 +54,10 @@ class RequestController: UITableViewController {
                     item.itemImageUrl = snapshot.value as! String
                 } else if(snapshot.key == "userId") {
                     item.userId = snapshot.value as! String
+                } else if(snapshot.key == "timestamp") {
+                    item.timestamp = snapshot.value as! NSNumber
+                } else if(snapshot.key == "category") {
+                    item.category = snapshot.value as! String
                 }
                 
                     dispatch_async(dispatch_get_main_queue(), {
@@ -70,16 +74,37 @@ class RequestController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //
-        let ref = FIRDatabase.database().referenceFromURL("https://tradey2-0.firebaseio.com/")
-        let requestRef = ref.child("requests").childByAutoId()
-        let content = ["fromItem": itemsIds[indexPath.row], "toItem": toItemId, "fromUser": currentUser, "toUser": toItemUserId, "accepted": "false"]
-        requestRef.setValue(content)
-        let userRequestRef = ref.child("users").child(currentUser).child("requests").childByAutoId()
-        userRequestRef.setValue(requestRef.key)
-        let userRequestedRef = ref.child("users").child(toItemUserId).child("requested").childByAutoId()
-        userRequestedRef.setValue(requestRef.key)
-        dismissViewControllerAnimated(true, completion: nil)
-        print("cell selected")
+        let refreshAlert = UIAlertController(title: "Confirm", message: "Are you sure you want to choose " + items[indexPath.row].title! + "?", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action: UIAlertAction!) in
+            print("ALERT")
+            let ref = FIRDatabase.database().referenceFromURL("https://tradey2-0.firebaseio.com/")
+            let requestRef = ref.child("requests").childByAutoId()
+            let content = ["fromItem": self.itemsIds[indexPath.row], "toItem": self.toItemId, "fromUser": self.currentUser, "toUser": self.toItemUserId, "accepted": "false"]
+            requestRef.setValue(content)
+            let userRequestRef = ref.child("users").child(self.currentUser).child("requests").childByAutoId()
+            userRequestRef.setValue(requestRef.key)
+            let userRequestedRef = ref.child("users").child(self.toItemUserId).child("requested").childByAutoId()
+            userRequestedRef.setValue(requestRef.key)
+            self.dismissViewControllerAnimated(true, completion: nil)
+            print("cell selected")
+        }))
+        
+        refreshAlert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: { (action: UIAlertAction!) in
+            print("NO")
+        }))
+        self.presentViewController(refreshAlert, animated: true, completion: nil)
+        
+//        let ref = FIRDatabase.database().referenceFromURL("https://tradey2-0.firebaseio.com/")
+//        let requestRef = ref.child("requests").childByAutoId()
+//        let content = ["fromItem": itemsIds[indexPath.row], "toItem": toItemId, "fromUser": currentUser, "toUser": toItemUserId, "accepted": "false"]
+//        requestRef.setValue(content)
+//        let userRequestRef = ref.child("users").child(currentUser).child("requests").childByAutoId()
+//        userRequestRef.setValue(requestRef.key)
+//        let userRequestedRef = ref.child("users").child(toItemUserId).child("requested").childByAutoId()
+//        userRequestedRef.setValue(requestRef.key)
+//        dismissViewControllerAnimated(true, completion: nil)
+//        print("cell selected")
         
     }
     
@@ -97,6 +122,8 @@ class RequestController: UITableViewController {
         print(item.desc)
         print(item.itemImageUrl)
         print(item.userId)
+        print(item.timestamp)
+        print(item.category)
         
         if let imageUrl = item.itemImageUrl {
             cell.itemImageView.loadImageUsingCacheWithUrlString(imageUrl)
@@ -120,6 +147,10 @@ class RequestController: UITableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 100
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
     }
     
 }
