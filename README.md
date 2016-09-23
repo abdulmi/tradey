@@ -11,7 +11,12 @@
 1- Add report tool to remove spam.  
 2- Add tutorial steps for first use.  
 3- Check its scalability.  
-4- Refactor the UI of the requests page.  
-![Alt text](Home.jpg "Home Page")
-![Alt text](Add.jpg "Add Page")
-![Alt text](Item.jpg "Item Page")
+4- Refactor the UI of the requests page. 
+  
+  
+![Alt text](Home.jpg "Home Page")  
+  
+![Alt text](Add.jpg "Add Page")  
+  
+![Alt text](Item.jpg "Item Page")  
+  
