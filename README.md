@@ -1,7 +1,8 @@
 #Tradey 
 ###Libraries used:  
-1- Firebase  
+1- Firebase Database and Storage 
 2- Digits  
+3- 
 ###App's Main Features:  
 1- Request/Accept tool for trading items.   
 2- Can only contact the "Tradeeys" if the trade is accepted by both ends.
@@ -12,3 +13,6 @@
 2- Add tutorial steps for first use.  
 3- Check its scalability.  
 4- Refactor the UI of the requests page.  
+![Alt text](trade/14446290_10154606690323944_980154529_o.jpg "Home Page")
+![Alt text](tradey/14446430_10154606690653944_755693535_o.jpg "Add Page")
+![Alt text](tradey/14438961_10154606690333944_1301617569_o.jpg "Item Page")
