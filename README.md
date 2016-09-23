@@ -14,8 +14,6 @@
 4- Refactor the UI of the requests page. 
   
   
-![Alt text](Home.jpg "Home Page")  
-  
 ![Alt text](Add.jpg "Add Page")  
   
 ![Alt text](Item.jpg "Item Page")  
