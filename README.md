@@ -13,6 +13,6 @@
 2- Add tutorial steps for first use.  
 3- Check its scalability.  
 4- Refactor the UI of the requests page.  
-![Alt text](14446290_10154606690323944_980154529_o.jpg "Home Page")
-![Alt text](14446430_10154606690653944_755693535_o.jpg "Add Page")
-![Alt text](14438961_10154606690333944_1301617569_o.jpg "Item Page")
+![Alt text](Home "Home Page")
+![Alt text](Add "Add Page")
+![Alt text](Item "Item Page")
