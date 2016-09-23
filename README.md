@@ -2,7 +2,6 @@
 ###Libraries used:  
 1- Firebase Database and Storage 
 2- Digits  
-3- 
 ###App's Main Features:  
 1- Request/Accept tool for trading items.   
 2- Can only contact the "Tradeeys" if the trade is accepted by both ends.
