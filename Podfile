@@ -12,5 +12,8 @@ target 'tradeyphonereg' do
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
+  pod 'CryptoSwift'
+  pod 'JSONWebToken'
   pod 'UIKeyboardLikePickerTextField'
+  pod 'KeychainSwift', '~> 7.0'
 end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7D3FCD1FEAACB6641A0769F5 /* Pods_tradeyphonereg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0533A91CE53A06482FF26660 /* Pods_tradeyphonereg.framework */; };
+		968CB69A1E6A5DD00041AA87 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 968CB6991E6A5DD00041AA87 /* CryptoSwift.framework */; };
 		C3445ADB1D32F28800A2AF3A /* ShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3445ADA1D32F28800A2AF3A /* ShowViewController.swift */; };
 		C392E8C21D3BED6B00ADB5F0 /* GetRequestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C392E8C11D3BED6B00ADB5F0 /* GetRequestsController.swift */; };
 		C3AB85CA1D2E910D006DDBE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AB85C91D2E910D006DDBE2 /* AppDelegate.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		0533A91CE53A06482FF26660 /* Pods_tradeyphonereg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tradeyphonereg.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44A7EE73A7582CAB87A3A736 /* Pods-tradeyphonereg.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeyphonereg.release.xcconfig"; path = "Pods/Target Support Files/Pods-tradeyphonereg/Pods-tradeyphonereg.release.xcconfig"; sourceTree = "<group>"; };
+		968CB6991E6A5DD00041AA87 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = "../Library/Developer/Xcode/DerivedData/tradeyphonereg-bdnqclggkkxjolfqonyyxhzvjooo/Build/Products/Debug-iphonesimulator/CryptoSwift/CryptoSwift.framework"; sourceTree = "<group>"; };
 		9FA16614D5A8FF883722CB8D /* Pods-tradeyphonereg.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tradeyphonereg.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tradeyphonereg/Pods-tradeyphonereg.debug.xcconfig"; sourceTree = "<group>"; };
 		C3445ADA1D32F28800A2AF3A /* ShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowViewController.swift; sourceTree = "<group>"; };
 		C392E8C11D3BED6B00ADB5F0 /* GetRequestsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetRequestsController.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				968CB69A1E6A5DD00041AA87 /* CryptoSwift.framework in Frameworks */,
 				7D3FCD1FEAACB6641A0769F5 /* Pods_tradeyphonereg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,6 +143,7 @@
 		DAB029896766E864BDE082A5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				968CB6991E6A5DD00041AA87 /* CryptoSwift.framework */,
 				0533A91CE53A06482FF26660 /* Pods_tradeyphonereg.framework */,
 			);
 			name = Frameworks;
@@ -176,12 +180,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = abdul;
 				TargetAttributes = {
 					C3AB85C51D2E910D006DDBE2 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = P9LU9SHJCH;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -245,7 +251,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		C3AB85DC1D2E927B006DDBE2 /* ShellScript */ = {
@@ -334,13 +340,17 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: aalmetwa@uwaterloo.ca (8NWK347BRK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = P9LU9SHJCH;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -357,12 +367,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = "";
 			};
 			name = Debug;
 		};
@@ -380,13 +391,16 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = P9LU9SHJCH;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -397,10 +411,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 2.3;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -409,15 +426,18 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9FA16614D5A8FF883722CB8D /* Pods-tradeyphonereg.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = P9LU9SHJCH;
 				INFOPLIST_FILE = tradeyphonereg/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abdul.tradeyphonereg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -425,15 +445,38 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 44A7EE73A7582CAB87A3A736 /* Pods-tradeyphonereg.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = P9LU9SHJCH;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/CryptoSwift\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/JSONWebToken\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/UIKeyboardLikePickerTextField\"",
+					"\"${PODS_ROOT}/Answers/iOS\"",
+					"\"${PODS_ROOT}/Digits/iOS\"",
+					"\"${PODS_ROOT}/Fabric/iOS\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/FirebaseAuth/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/FirebaseDatabase/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/FirebaseStorage/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/GoogleInterchangeUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleNetworkingUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleParsingUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSymbolUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleUtilities/Frameworks\"",
+					"\"${PODS_ROOT}/TwitterCore/iOS\"",
+				);
 				INFOPLIST_FILE = tradeyphonereg/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abdul.tradeyphonereg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

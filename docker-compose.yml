@@ -1,0 +1,23 @@
+version: '2'
+services:
+  dynamodb-local:
+    image: dwmkerr/dynamodb
+    ports:
+      - "8000:8000"
+  server-local:
+    build: .
+    command: bash
+    working_dir: /app/backend
+    volumes:
+      - ./backend:/app/backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - dynamodb-local
+    links:
+      - dynamodb-local
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    stdin_open: true
+    tty: true

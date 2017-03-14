@@ -20,7 +20,7 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
         view.backgroundColor = UIColor(red:0.05, green:0.1, blue:0.15, alpha:1.0)
         
         descriptionTextField.text = "Describe your item"
-        descriptionTextField.textColor = UIColor.lightGrayColor()
+        descriptionTextField.textColor = UIColor.lightGray
         
         view.addSubview(inputsContainerView)
         view.addSubview(takePhoto)
@@ -33,9 +33,9 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
         setupPickerTextField()
         print("AddnewItem")
         // Do any additional setup after loading the view
-        self.navigationController!.navigationBarHidden = false
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: #selector(back))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .Plain, target: self, action: #selector(submitItem))
+        self.navigationController!.isNavigationBarHidden = false
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(back))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .plain, target: self, action: #selector(submitItem))
 
     }
     
@@ -49,22 +49,22 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
 //        picker.textColor = UIColor.whiteColor()
         
         picker.text = "Choose Category"
-        picker.textAlignment = .Center
-        picker.backgroundColor = UIColor.whiteColor()
+        picker.textAlignment = .center
+        picker.backgroundColor = UIColor.white
         return picker
     }()
     
     func setupPickerTextField() {
-        pickerTextField.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        pickerTextField.topAnchor.constraintEqualToAnchor(inputsContainerView.bottomAnchor,constant: 12).active = true
-        pickerTextField.widthAnchor.constraintEqualToAnchor(takePhoto.widthAnchor).active = true
-        pickerTextField.heightAnchor.constraintEqualToConstant(35).active = true
+        pickerTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        pickerTextField.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor,constant: 12).isActive = true
+        pickerTextField.widthAnchor.constraint(equalTo: takePhoto.widthAnchor).isActive = true
+        pickerTextField.heightAnchor.constraint(equalToConstant: 35).isActive = true
     }
 
     
     let inputsContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
@@ -74,21 +74,21 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
     let addViewTitle: UILabel = {
         let label = UILabel()
         label.text = "Create Item"
-        label.textColor = UIColor.whiteColor()
-        label.font = label.font.fontWithSize(30)
+        label.textColor = UIColor.white
+        label.font = label.font.withSize(30)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .Center
+        label.textAlignment = .center
         return label
     }()
     
     lazy var takePhoto: UIButton = {
-        let button = UIButton(type: .System)
+        let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 80, g: 101, b: 161)
-        button.setTitle("Take Photo", forState: .Normal)
+        button.setTitle("Take Photo", for: UIControlState())
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        button.titleLabel?.font = UIFont.boldSystemFontOfSize(16)
-        button.addTarget(self, action: #selector(openCam), forControlEvents: .TouchUpInside)
+        button.setTitleColor(UIColor.white, for: UIControlState())
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.addTarget(self, action: #selector(openCam), for: .touchUpInside)
         return button
     }()
     
@@ -113,26 +113,26 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
         return tf
     }()
     
-    func textViewDidBeginEditing(textView: UITextView) {
+    func textViewDidBeginEditing(_ textView: UITextView) {
         print("did begin editing")
-        if textView.textColor == UIColor.lightGrayColor() {
+        if textView.textColor == UIColor.lightGray {
             textView.text = nil
-            textView.textColor = UIColor.blackColor()
+            textView.textColor = UIColor.black
         }
     }
     
     func openCam() {
         let imagePicker =  UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .Camera
+        imagePicker.sourceType = .camera
         imagePicker.allowsEditing = true
-        presentViewController(imagePicker, animated: true, completion: nil)
+        present(imagePicker, animated: true, completion: nil)
     }
     
-    func textViewDidEndEditing(textView: UITextView) {
+    func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = "Describe your item"
-            textView.textColor = UIColor.lightGrayColor()
+            textView.textColor = UIColor.lightGray
         }
     }
     
@@ -148,19 +148,19 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
         itemsViewController.resetAllButtons()
         itemsViewController.navigationItem.title = "All"
         let navigationController = UINavigationController(rootViewController: itemsViewController)
-        self.presentViewController(navigationController, animated: true, completion: nil)
+        self.present(navigationController, animated: true, completion: nil)
     }
     
     func back() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
     func setupInputsContainerView() {
         //need x, y, width, height constraints
-        inputsContainerView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        inputsContainerView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor).active = true
-        inputsContainerView.widthAnchor.constraintEqualToAnchor(view.widthAnchor, constant: -24).active = true
-        inputsContainerView.heightAnchor.constraintEqualToConstant(100).active = true
+        inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        inputsContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
+        inputsContainerView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         inputsContainerView.addSubview(titleTextField)
         inputsContainerView.addSubview(titleSeparatorView)
@@ -168,25 +168,25 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
 //        inputsContainerView.addSubview(descriptionSeparatorView)
         
         //need x, y, width, height constraints
-        titleTextField.leftAnchor.constraintEqualToAnchor(inputsContainerView.leftAnchor, constant: 12).active = true
-        titleTextField.topAnchor.constraintEqualToAnchor(inputsContainerView.topAnchor).active = true
+        titleTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
+        titleTextField.topAnchor.constraint(equalTo: inputsContainerView.topAnchor).isActive = true
         
-        titleTextField.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
-        titleTextField.heightAnchor.constraintEqualToAnchor(inputsContainerView.heightAnchor, multiplier: 0.40).active = true
-        
-        //need x, y, width, height constraints
-        titleSeparatorView.leftAnchor.constraintEqualToAnchor(inputsContainerView.leftAnchor).active = true
-        titleSeparatorView.topAnchor.constraintEqualToAnchor(titleTextField.bottomAnchor).active = true
-        titleSeparatorView.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
-        titleSeparatorView.heightAnchor.constraintEqualToConstant(1).active = true
+        titleTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        titleTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 0.40).isActive = true
         
         //need x, y, width, height constraints
-        descriptionTextField.leftAnchor.constraintEqualToAnchor(inputsContainerView.leftAnchor, constant: 12).active = true
-        descriptionTextField.topAnchor.constraintEqualToAnchor(titleSeparatorView.bottomAnchor).active = true
+        titleSeparatorView.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor).isActive = true
+        titleSeparatorView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor).isActive = true
+        titleSeparatorView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        titleSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        descriptionTextField.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
+        //need x, y, width, height constraints
+        descriptionTextField.leftAnchor.constraint(equalTo: inputsContainerView.leftAnchor, constant: 12).isActive = true
+        descriptionTextField.topAnchor.constraint(equalTo: titleSeparatorView.bottomAnchor).isActive = true
+        
+        descriptionTextField.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
 //        descriptionTextField.bottomAnchor.constraintEqualToAnchor(inputsContainerView.bottomAnchor).active = true
-        descriptionTextField.heightAnchor.constraintEqualToAnchor(inputsContainerView.heightAnchor, multiplier: 0.60).active = true
+        descriptionTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: 0.60).isActive = true
 
         
 //        //need x, y, width, height constraints
@@ -200,18 +200,18 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
     }
 
     func setupAddViewTitle() {
-        addViewTitle.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        addViewTitle.bottomAnchor.constraintEqualToAnchor(inputsContainerView.topAnchor, constant: -50).active = true
-        addViewTitle.widthAnchor.constraintEqualToConstant(300).active = true
-        addViewTitle.heightAnchor.constraintEqualToConstant(50).active = true
+        addViewTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        addViewTitle.bottomAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: -50).isActive = true
+        addViewTitle.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        addViewTitle.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func setupLoginRegisterButton() {
         //need x, y, width, height constraints
-        takePhoto.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        takePhoto.topAnchor.constraintEqualToAnchor(pickerTextField.bottomAnchor, constant: 12).active = true
-        takePhoto.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
-        takePhoto.heightAnchor.constraintEqualToConstant(50).active = true
+        takePhoto.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        takePhoto.topAnchor.constraint(equalTo: pickerTextField.bottomAnchor, constant: 12).isActive = true
+        takePhoto.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        takePhoto.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func submitItem() {
@@ -224,13 +224,13 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
             if (titleTextField.text == "") || (descriptionTextField.text == "Describe your item") || (descriptionTextField.text == "" || pickerTextField.text == "Choose Category" || (pickerTextField.text != "Electronics" && pickerTextField.text != "Furniture" && pickerTextField.text != "Other" && pickerTextField.text != "Transportation")) {
                 print("error Add item or Category")
             } else {
-                let imageName = NSUUID().UUIDString
+                let imageName = UUID().uuidString
                 let storageRef = FIRStorage.storage().reference().child("\(imageName).jpg")
                 if (itemImage == nil) {
                     print("error Take photo")
                 } else {
                     if let uploadData = UIImageJPEGRepresentation(itemImage!,0.4) {
-                        storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                        storageRef.put(uploadData, metadata: nil, completion: { (metadata, error) in
                             if(error != nil) {
                                 print("image upload error")
                                 print(error)
@@ -238,20 +238,20 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
                             }
                             if let imageUrl = metadata?.downloadURL()?.absoluteString {
                                 print(imageUrl)
-                                let timestamp: NSNumber = Int(NSDate().timeIntervalSinceReferenceDate)
+                                let timestamp: NSNumber = NSNumber(value:Int(Date().timeIntervalSinceReferenceDate))
                                 let contentRef = [
-                                    "title":self.titleTextField.text as! AnyObject,
-                                    "description":self.descriptionTextField.text as! AnyObject,
+                                    "title":self.titleTextField.text as AnyObject,
+                                    "description":self.descriptionTextField.text as AnyObject,
                                     "imageUrl":imageUrl,
                                     "userId":userId,
                                     "timestamp": timestamp,
                                     "category": self.pickerTextField.text! as String
-                                ]
+                                ] as [String : Any]
                                 newItemRef.setValue(contentRef)
                             }
                             
                         })
-                        let ref = FIRDatabase.database().referenceFromURL("https://tradey2-0.firebaseio.com/")
+                        let ref = FIRDatabase.database().reference(fromURL: "https://tradey2-0.firebaseio.com/")
                         let userRefItem = ref.child("users").child(userId).child("items").childByAutoId()
                         userRefItem.setValue(key)
                         
@@ -266,11 +266,11 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
         
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         print(info)
         
         var selectedImageFromPicker: UIImage?
@@ -289,7 +289,7 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
             itemImage = selectedImage
             print("below setting selectedImage")
         }
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -297,13 +297,13 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
         // Dispose of any resources that can be recreated.
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         self.view.endEditing(true)
         
     }
     
-    func textFieldShouldReturn(textField:UITextField!) -> Bool {
+    func textFieldShouldReturn(_ textField:UITextField!) -> Bool {
         
         titleTextField.resignFirstResponder()
         descriptionTextField.resignFirstResponder()
@@ -311,8 +311,8 @@ class AddViewController: UIViewController, UITextViewDelegate, UITextFieldDelega
         return true
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
     }
     
     

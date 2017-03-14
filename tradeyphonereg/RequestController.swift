@@ -20,23 +20,23 @@ class RequestController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: #selector(backToShow))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backToShow))
         // Do any additional setup after loading the view.
-        tableView.registerClass(ItemCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(ItemCell.self, forCellReuseIdentifier: cellId)
         print("inside requestcontroller")
         print(currentUser)
-        FIRDatabase.database().reference().child("users").child(currentUser).child("items").observeEventType(.ChildAdded, withBlock: { (snapshot) in
+        FIRDatabase.database().reference().child("users").child(currentUser).child("items").observe(.childAdded, with: { (snapshot) in
                 print(snapshot.value)
                 self.itemsIds.append(snapshot.value as! String)
-            }, withCancelBlock: nil)
+            }, withCancel: nil)
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         fetchItems()
         print("how many items")
         print(items)
     }
     func backToShow() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     func fetchItems() {
@@ -44,7 +44,7 @@ class RequestController: UITableViewController {
         print(itemsIds)
         for itemId in itemsIds {
             let item = Item()
-            FIRDatabase.database().reference().child("items").child(itemId).observeEventType(.ChildAdded, withBlock: { (snapshot) in
+            FIRDatabase.database().reference().child("items").child(itemId).observe(.childAdded, with: { (snapshot) in
                 //hacky way of setting the keys in item, becuase snapshot gives one key at a time inside the item's key 
                 if(snapshot.key == "title") {
                     item.title = snapshot.value as! String
@@ -60,25 +60,25 @@ class RequestController: UITableViewController {
                     item.category = snapshot.value as! String
                 }
                 
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.tableView.reloadData()
                     })
                 
                 
-                }, withCancelBlock: nil)
+                }, withCancel: nil)
             self.items.append(item)
 
         }
         
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //
-        let refreshAlert = UIAlertController(title: "Confirm", message: "Are you sure you want to choose " + items[indexPath.row].title! + "?", preferredStyle: UIAlertControllerStyle.Alert)
+        let refreshAlert = UIAlertController(title: "Confirm", message: "Are you sure you want to choose " + items[indexPath.row].title! + "?", preferredStyle: UIAlertControllerStyle.alert)
         
-        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
             print("ALERT")
-            let ref = FIRDatabase.database().referenceFromURL("https://tradey2-0.firebaseio.com/")
+            let ref = FIRDatabase.database().reference(fromURL: "https://tradey2-0.firebaseio.com/")
             let requestRef = ref.child("requests").childByAutoId()
             let content = ["fromItem": self.itemsIds[indexPath.row], "toItem": self.toItemId, "fromUser": self.currentUser, "toUser": self.toItemUserId, "accepted": "false"]
             requestRef.setValue(content)
@@ -86,14 +86,14 @@ class RequestController: UITableViewController {
             userRequestRef.setValue(requestRef.key)
             let userRequestedRef = ref.child("users").child(self.toItemUserId).child("requested").childByAutoId()
             userRequestedRef.setValue(requestRef.key)
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
             print("cell selected")
         }))
         
-        refreshAlert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
             print("NO")
         }))
-        self.presentViewController(refreshAlert, animated: true, completion: nil)
+        self.present(refreshAlert, animated: true, completion: nil)
         
 //        let ref = FIRDatabase.database().referenceFromURL("https://tradey2-0.firebaseio.com/")
 //        let requestRef = ref.child("requests").childByAutoId()
@@ -108,13 +108,13 @@ class RequestController: UITableViewController {
         
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("cell view")
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! ItemCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ItemCell
         let item = items[indexPath.row]
         cell.textLabel?.text = item.title
         cell.detailTextLabel?.text = item.desc
@@ -140,17 +140,17 @@ class RequestController: UITableViewController {
     
     
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     // MARK: - Table view data source
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
     }
     
 }

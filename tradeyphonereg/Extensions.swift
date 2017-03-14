@@ -8,31 +8,31 @@
 
 import UIKit
 
-let imageCache = NSCache()
+let imageCache = NSCache<AnyObject, AnyObject>()
 
 extension UIImageView {
-    func loadImageUsingCacheWithUrlString(urlString: String) {
+    func loadImageUsingCacheWithUrlString(_ urlString: String) {
         
         self.image = nil
         
         //check cache for image first 
-        if let chachedImage = imageCache.objectForKey(urlString) as? UIImage {
+        if let chachedImage = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
             print("getting photo from cahce")
             self.image = chachedImage
             return
         }
         
         //otherwise get it from firebase
-        let url = NSURL(string: urlString)
-        NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) in
+        let url = URL(string: urlString)
+        URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
             if(error != nil) {
                 print(error)
                 return
             }
             print("getting photo from firebase")
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 if let downloadedImage = UIImage(data: data!) {
-                    imageCache.setObject(downloadedImage, forKey: urlString)
+                    imageCache.setObject(downloadedImage, forKey: urlString as AnyObject)
                     self.image = downloadedImage
                 }
             })
@@ -43,20 +43,20 @@ extension UIImageView {
 }
 
 extension UINavigationController {
-    public override func shouldAutorotate() -> Bool {
+    open override var shouldAutorotate : Bool {
         return true
     }
     
-    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return (visibleViewController?.supportedInterfaceOrientations())!
+    open override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return (visibleViewController?.supportedInterfaceOrientations)!
     }
 }
 
 extension UIAlertController {
-    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+    open override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
     }
-    public override func shouldAutorotate() -> Bool {
+    open override var shouldAutorotate : Bool {
         return false
     }
 }

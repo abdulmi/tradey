@@ -17,11 +17,11 @@ class ShowViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: #selector(home))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(home))
         navigationItem.title = currentItem.title
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Contact", style: .Plain, target: self, action: #selector(contact))
-        navigationItem.rightBarButtonItem?.enabled = contactBool
-        request.enabled = requestBool
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Contact", style: .plain, target: self, action: #selector(contact))
+        navigationItem.rightBarButtonItem?.isEnabled = contactBool
+        request.isEnabled = requestBool
         productImage.loadImageUsingCacheWithUrlString(currentItem.itemImageUrl!)
         let itemDate = NumToDateToStr(currentItem.timestamp!)
         print(currentItem.desc)
@@ -35,9 +35,9 @@ class ShowViewController: UIViewController, UITextViewDelegate {
         view.addSubview(request)
         view.addSubview(lineseparator)
         view.addSubview(productTitle)
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         request.backgroundColor = UIColor(red:1.0, green:0.76, blue:0.0, alpha:1.0)
-        request.setTitle("Request", forState: .Normal)
+        request.setTitle("Request", for: UIControlState())
         setupProductImage()
         setupRequestButton()
         setupDateLabel()
@@ -49,48 +49,48 @@ class ShowViewController: UIViewController, UITextViewDelegate {
             //checking the current item shown is "my" item
             if user.uid == currentItem.userId {
                 self.contactBool = false
-                self.navigationItem.rightBarButtonItem?.enabled = self.contactBool
+                self.navigationItem.rightBarButtonItem?.isEnabled = self.contactBool
                 self.requestBool = false
-                self.request.enabled = self.requestBool
-                self.request.setTitle("My Item", forState: .Normal)
-                self.request.backgroundColor? = UIColor.grayColor()
+                self.request.isEnabled = self.requestBool
+                self.request.setTitle("My Item", for: UIControlState())
+                self.request.backgroundColor? = UIColor.gray
             }  else {
             //checking if I(current user) requested the item in the show
-            FIRDatabase.database().reference().child("users").child(user.uid).child("requests").observeEventType(.ChildAdded, withBlock: { (snapshot) in
-                            FIRDatabase.database().reference().child("requests").child(snapshot.value as! String).observeEventType(.ChildAdded, withBlock: { (snapshotChild) in
+            FIRDatabase.database().reference().child("users").child(user.uid).child("requests").observe(.childAdded, with: { (snapshot) in
+                            FIRDatabase.database().reference().child("requests").child(snapshot.value as! String).observe(.childAdded, with: { (snapshotChild) in
                                     //check if the item in the show page is requested by me(the current user) by any of my items
                                     if(snapshotChild.key == "toItem" && snapshotChild.value as! String == self.currentItemId) {
                                         print("found toItem")
-                                        FIRDatabase.database().reference().child("requests").child(snapshot.value as! String).observeEventType(.ChildAdded, withBlock: { (snapshotAccepted) in
+                                        FIRDatabase.database().reference().child("requests").child(snapshot.value as! String).observe(.childAdded, with: { (snapshotAccepted) in
                                             // I cound't use req/accepted because we're pulling data, not setting values
                                             if(snapshotAccepted.key == "accepted" && snapshotAccepted.value as! String == "true") {
                                                 print("found accepted")
                                                 print(snapshotAccepted.value)
                                                 self.contactBool = true
-                                                self.navigationItem.rightBarButtonItem?.enabled = self.contactBool
+                                                self.navigationItem.rightBarButtonItem?.isEnabled = self.contactBool
                                                 self.requestBool = false
-                                                self.request.enabled = self.requestBool
-                                                self.request.setTitle("Accepted", forState: .Normal)
+                                                self.request.isEnabled = self.requestBool
+                                                self.request.setTitle("Accepted", for: UIControlState())
                                                 self.request.backgroundColor? = UIColor(red:0.15, green:0.83, blue:0.31, alpha:1.0)
                                             } else if(snapshotAccepted.key == "accepted"){
                                                 print("found pending")
                                                 self.requestBool = false
-                                                self.request.enabled = self.requestBool
-                                                self.request.setTitle("Pending", forState: .Normal)
-                                                self.request.backgroundColor? = UIColor.grayColor()
+                                                self.request.isEnabled = self.requestBool
+                                                self.request.setTitle("Pending", for: UIControlState())
+                                                self.request.backgroundColor? = UIColor.gray
                                             }
-                                            }, withCancelBlock: nil)
+                                            }, withCancel: nil)
                                     }
-                                }, withCancelBlock:nil)
-                }, withCancelBlock: nil)
+                                }, withCancel:nil)
+                }, withCancel: nil)
                 var one_iteration_only = 0
-                FIRDatabase.database().reference().child("users").child(user.uid).child("requested").observeEventType(.ChildAdded, withBlock: { (snapshot) in
-                    FIRDatabase.database().reference().child("requests").child(snapshot.value as! String).observeEventType(.ChildAdded, withBlock: { (snapshotChild) in
+                FIRDatabase.database().reference().child("users").child(user.uid).child("requested").observe(.childAdded, with: { (snapshot) in
+                    FIRDatabase.database().reference().child("requests").child(snapshot.value as! String).observe(.childAdded, with: { (snapshotChild) in
                         //created one_iteration_only to solve the problem of one item requesting many items from the same user, and the user should see accepted when he/she clicks on the item that the user requested from.
                         if(snapshotChild.key == "fromItem" && snapshotChild.value as! String == self.currentItemId) {
                             print("found from item before one_iteration")
                                 print("found fromItem")
-                                FIRDatabase.database().reference().child("requests").child(snapshot.value as! String).observeEventType(.ChildAdded, withBlock: { (snapshotAccepted) in
+                                FIRDatabase.database().reference().child("requests").child(snapshot.value as! String).observe(.childAdded, with: { (snapshotAccepted) in
                                     // I cound't use req/accepted because we're pulling data, not setting values
                                     one_iteration_only = one_iteration_only + 1
                                     print(one_iteration_only)
@@ -100,29 +100,29 @@ class ShowViewController: UIViewController, UITextViewDelegate {
                                             print("found accepted")
                                             print(snapshotAccepted.value)
                                             self.contactBool = true
-                                            self.navigationItem.rightBarButtonItem?.enabled = self.contactBool
+                                            self.navigationItem.rightBarButtonItem?.isEnabled = self.contactBool
                                             self.requestBool = false
-                                            self.request.enabled = self.requestBool
-                                            self.request.setTitle("Accepted ", forState: .Normal)
+                                            self.request.isEnabled = self.requestBool
+                                            self.request.setTitle("Accepted ", for: UIControlState())
                                             self.request.backgroundColor? = UIColor(red:0.15, green:0.83, blue:0.31, alpha:1.0)
                                         } else if(snapshotAccepted.key == "accepted") {
                                             print("found pending")
                                             self.contactBool = false
-                                            self.navigationItem.rightBarButtonItem?.enabled = self.contactBool
+                                            self.navigationItem.rightBarButtonItem?.isEnabled = self.contactBool
                                             self.requestBool = false
-                                            self.request.enabled = self.requestBool
-                                            self.request.setTitle("Pending ", forState: .Normal)
-                                            self.request.backgroundColor? = UIColor.grayColor()
+                                            self.request.isEnabled = self.requestBool
+                                            self.request.setTitle("Pending ", for: UIControlState())
+                                            self.request.backgroundColor? = UIColor.gray
                                             //just to give the accepted a priority
                                             one_iteration_only = 0
                                         } else {
                                             one_iteration_only = 0
                                         }
                                     }
-                                }, withCancelBlock: nil)
+                                }, withCancel: nil)
                             }
-                        }, withCancelBlock:nil)
-                    }, withCancelBlock: nil)
+                        }, withCancel:nil)
+                    }, withCancel: nil)
             }
         } else {
             //user is not authenticated
@@ -134,7 +134,7 @@ class ShowViewController: UIViewController, UITextViewDelegate {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 5
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -144,16 +144,16 @@ class ShowViewController: UIViewController, UITextViewDelegate {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(white:0.1, alpha:1.0)
         label.backgroundColor = UIColor(white:0.9, alpha:1.0)
-        label.editable = false
+        label.isEditable = false
         return label
     }()
     
     lazy var request: UIButton = {
-        let button = UIButton(type: .System)
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        button.titleLabel?.font = UIFont.boldSystemFontOfSize(16)
-        button.addTarget(self, action: #selector(createRequest), forControlEvents: .TouchUpInside)
+        button.setTitleColor(UIColor.white, for: UIControlState())
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.addTarget(self, action: #selector(createRequest), for: .touchUpInside)
         return button
     }()
     
@@ -167,35 +167,35 @@ class ShowViewController: UIViewController, UITextViewDelegate {
     }()
     
     func setupDateLabel() {
-        dateLabel.topAnchor.constraintEqualToAnchor(productImage.bottomAnchor, constant: 10).active = true
-        dateLabel.leftAnchor.constraintEqualToAnchor(view.leftAnchor, constant: 8).active = true
+        dateLabel.topAnchor.constraint(equalTo: productImage.bottomAnchor, constant: 10).isActive = true
+        dateLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
     }
     
     let lineseparator: UIView = {
         let horline = UIView()
-        horline.backgroundColor = UIColor.blackColor()
+        horline.backgroundColor = UIColor.black
         horline.translatesAutoresizingMaskIntoConstraints = false
         return horline
     }()
     
     func setupLineSep() {
-        lineseparator.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
-        lineseparator.heightAnchor.constraintEqualToConstant(0.5).active = true
-        lineseparator.topAnchor.constraintEqualToAnchor(dateLabel.bottomAnchor, constant: 5).active = true
+        lineseparator.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        lineseparator.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        lineseparator.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 5).isActive = true
     }
     
     let productTitle: UILabel = {
        let label = UILabel()
         label.font = UIFont(name:"Helvetica Neue", size: 18)
-        label.textColor = UIColor.blackColor()
+        label.textColor = UIColor.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     func setupProductTitle() {
-        productTitle.topAnchor.constraintEqualToAnchor(lineseparator.bottomAnchor, constant: 30).active = true
-        productTitle.leftAnchor.constraintEqualToAnchor(view.leftAnchor, constant: 20).active = true
-        productTitle.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
+        productTitle.topAnchor.constraint(equalTo: lineseparator.bottomAnchor, constant: 30).isActive = true
+        productTitle.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        productTitle.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
     }
     
     func createRequest() {
@@ -206,7 +206,7 @@ class ShowViewController: UIViewController, UITextViewDelegate {
             requestController.toItemUserId = currentItem.userId
             requestController.toItemId = currentItemId
             let navcontroller = UINavigationController(rootViewController: requestController)
-            self.presentViewController(navcontroller, animated: true, completion: nil)
+            self.present(navcontroller, animated: true, completion: nil)
             
         } else {
             print("user is not signed in/not authenticated")
@@ -218,48 +218,48 @@ class ShowViewController: UIViewController, UITextViewDelegate {
         let contactController = ContactController()
         contactController.userId = currentItem.userId
         let navController = UINavigationController(rootViewController: contactController)
-        presentViewController(navController, animated: true, completion: nil)
+        present(navController, animated: true, completion: nil)
     }
 
     
     func setupProductImage() {
-        productImage.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        productImage.topAnchor.constraintEqualToAnchor(view.topAnchor, constant: 70).active = true
-        productImage.widthAnchor.constraintEqualToAnchor(view.widthAnchor, constant: -7).active = true
-        productImage.heightAnchor.constraintEqualToConstant(300).active = true
+        productImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        productImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 70).isActive = true
+        productImage.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -7).isActive = true
+        productImage.heightAnchor.constraint(equalToConstant: 300).isActive = true
         
     }
     
     func setupProductDetails() {
-        productDetails.topAnchor.constraintEqualToAnchor(productTitle.bottomAnchor, constant: 10).active = true
-        productDetails.leftAnchor.constraintEqualToAnchor(view.leftAnchor, constant: 20).active = true
-        productDetails.rightAnchor.constraintEqualToAnchor(view.rightAnchor, constant: -20).active = true
-        productDetails.heightAnchor.constraintEqualToConstant(70).active = true
-        productDetails.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
+        productDetails.topAnchor.constraint(equalTo: productTitle.bottomAnchor, constant: 10).isActive = true
+        productDetails.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        productDetails.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        productDetails.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        productDetails.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
     func setupRequestButton() {
         //need x, y, width, height constraints
-        request.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        request.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor, constant: -7).active = true
-        request.widthAnchor.constraintEqualToAnchor(productImage.widthAnchor).active = true
-        request.heightAnchor.constraintEqualToConstant(50).active = true
+        request.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        request.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -7).isActive = true
+        request.widthAnchor.constraint(equalTo: productImage.widthAnchor).isActive = true
+        request.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func home() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func NumToDateToStr(date: NSNumber) -> String {
-        let dateformatter = NSDateFormatter()
+    func NumToDateToStr(_ date: NSNumber) -> String {
+        let dateformatter = DateFormatter()
         
-        dateformatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        dateformatter.dateStyle = DateFormatter.Style.short
         
-        dateformatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        dateformatter.timeStyle = DateFormatter.Style.short
         
-        let NumToDate = NSDate(timeIntervalSinceReferenceDate: date as Double)
+        let NumToDate = Date(timeIntervalSinceReferenceDate: date as Double)
         
-        let myddate = dateformatter.stringFromDate(NumToDate)
+        let myddate = dateformatter.string(from: NumToDate)
         
         return myddate
     }
@@ -269,8 +269,8 @@ class ShowViewController: UIViewController, UITextViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
     }
     
 }
